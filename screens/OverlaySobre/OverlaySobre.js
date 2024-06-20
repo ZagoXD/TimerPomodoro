@@ -16,7 +16,7 @@ const OverlaySobre = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.btnClose}>
-        <Image source={require('./assets/images/close.png')} style={styles.closeB} />
+        <Image source={require('../../assets/images/close.png')} style={styles.closeB} />
       </TouchableOpacity>
       <View style={styles.viewEscrita}>
         <Text style={styles.h1}>Para que servem os abacates?</Text>
@@ -24,7 +24,7 @@ const OverlaySobre = () => {
         <Text style={styles.text2}>os abacates servem como moedas, ou seja, a cada timer completo você ganha um, porém se não terminar vai perder abacate bem.</Text>
       </View>
       <View style={styles.viewImagem}>
-        <Image source={require('./assets/images/Abacates.png')} style={styles.image} />
+        <Image source={require('../../assets/images/Abacates.png')} style={styles.image} />
       </View>
     </View>
   );

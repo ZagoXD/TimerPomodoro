@@ -23,7 +23,7 @@ const CreateAcc = () => {
         <TouchableOpacity style={styles.cancelButton}>
           <Text style={styles.cancelButtonText}>Cancelar</Text>
         </TouchableOpacity>
-        <Image source={require('./assets/images/abacaxi.png')} style={styles.image} />
+        <Image source={require('../../assets/images/abacaxi.png')} style={styles.image} />
       </View>
       <Text style={styles.h1}>Crie sua conta</Text>
       <TextInput

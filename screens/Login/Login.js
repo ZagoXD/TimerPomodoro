@@ -19,7 +19,7 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
-      <Image source={require('./assets/images/abacaxi.png')} style={styles.image} />
+      <Image source={require('../../assets/images/abacaxi.png')} style={styles.image} />
       <Text style={styles.h1}>Faça seu login para começar</Text>
       <TextInput
         style={styles.input}

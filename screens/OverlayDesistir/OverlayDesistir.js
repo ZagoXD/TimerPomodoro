@@ -16,7 +16,7 @@ const OverlayDesistir = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.btnClose}>
-        <Image source={require('./assets/images/close.png')} style={styles.closeB} />
+        <Image source={require('../../assets/images/close.png')} style={styles.closeB} />
       </TouchableOpacity>
       <View style={styles.viewEscrita}>
         <Text style={styles.h1}>Tem certeza que vai desistir bem?</Text>
@@ -27,7 +27,7 @@ const OverlayDesistir = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.viewImagem}>
-        <Image source={require('./assets/images/imgDesistir.png')} style={styles.image} />
+        <Image source={require('../../assets/images/imgDesistir.png')} style={styles.image} />
       </View>
     </View>
   );
