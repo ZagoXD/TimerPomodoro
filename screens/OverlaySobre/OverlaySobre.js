@@ -1,8 +1,13 @@
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import { useFonts, NunitoSans_700Bold } from '@expo-google-fonts/nunito-sans';
 import { OpenSans_400Regular } from '@expo-google-fonts/open-sans';
+import { useNavigation } from '@react-navigation/native'; // Importar useNavigation
 
 const OverlaySobre = () => {
+  const navigation = useNavigation(); // Obter objeto de navegação
+  const handleCloseAbout = () => {
+    navigation.navigate('TelaPrincipal');
+  };
   const [fonteLoaded] = useFonts({
     NunitoSans_700Bold,
     OpenSans_400Regular,
@@ -15,8 +20,8 @@ const OverlaySobre = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.btnClose}>
-        <Image source={require('../../assets/images/close.png')} style={styles.closeB} />
+      <TouchableOpacity style={styles.btnClose} onPress={handleCloseAbout}>
+        <Image source={require('../../assets/images/close.png')} style={styles.closeB}  />
       </TouchableOpacity>
       <View style={styles.viewEscrita}>
         <Text style={styles.h1}>Para que servem os abacates?</Text>

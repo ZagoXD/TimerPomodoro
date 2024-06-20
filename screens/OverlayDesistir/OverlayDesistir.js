@@ -1,9 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import { useFonts, NunitoSans_700Bold } from '@expo-google-fonts/nunito-sans';
 import { OpenSans_400Regular } from '@expo-google-fonts/open-sans';
+import { useNavigation } from '@react-navigation/native';
 
 const OverlayDesistir = () => {
+  const navigation = useNavigation();
+
+  const handleCloseAbandon = () => {
+    navigation.goBack();
+  };
+
+  const handleDesistir = () => {
+    navigation.navigate('TelaPrincipal', { stopTimer: true, decrementCount: true });
+  };
+
   const [fonteLoaded] = useFonts({
     NunitoSans_700Bold,
     OpenSans_400Regular,
@@ -15,20 +26,20 @@ const OverlayDesistir = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.btnClose}>
+      <TouchableOpacity style={styles.btnClose} onPress={handleCloseAbandon}>
         <Image source={require('../../assets/images/close.png')} style={styles.closeB} />
       </TouchableOpacity>
       <View style={styles.viewEscrita}>
         <Text style={styles.h1}>Tem certeza que vai desistir bem?</Text>
         <Text style={styles.text}>Cuidado, se desistir vai perder um abacate.</Text>
         <Text style={styles.text2}>Como assim não gosta de abacate?</Text>
-        <TouchableOpacity style={styles.btnDesistir}>
+        <TouchableOpacity style={styles.btnDesistir} onPress={handleDesistir}>
           <Text style={styles.btnText}>Desistir</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.viewImagem}>
+      <TouchableOpacity style={styles.viewImagem} onPress={handleDesistir}>
         <Image source={require('../../assets/images/imgDesistir.png')} style={styles.image} />
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

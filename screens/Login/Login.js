@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
-import { useFonts, NunitoSans_700Bold } from '@expo-google-fonts/nunito-sans'
-import { OpenSans_400Regular, OpenSans_600SemiBold } from '@expo-google-fonts/open-sans'
+import { useFonts, NunitoSans_700Bold } from '@expo-google-fonts/nunito-sans';
+import { OpenSans_400Regular, OpenSans_600SemiBold } from '@expo-google-fonts/open-sans';
+import { useNavigation } from '@react-navigation/native'; // Importar useNavigation
 
 const Login = () => {
+  const navigation = useNavigation(); // Obter objeto de navegação
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -11,11 +13,19 @@ const Login = () => {
     NunitoSans_700Bold,
     OpenSans_400Regular,
     OpenSans_600SemiBold,
-  })
+  });
+  
   if (!fonteLoaded){
     return null
   }
 
+  const handleLogin = () => {
+    navigation.navigate('TelaPrincipal');
+  };
+
+  const handleRegister = () => {
+    navigation.navigate('CreateAcc');
+  };
 
   return (
     <View style={styles.container}>
@@ -37,10 +47,10 @@ const Login = () => {
         secureTextEntry
         autoCapitalize="none"
       />
-      <TouchableOpacity style={styles.buttonLogin}>
+      <TouchableOpacity style={styles.buttonLogin} onPress={handleLogin}>
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.buttonCreate}>
+      <TouchableOpacity style={styles.buttonCreate} onPress={handleRegister}>
         <Text style={styles.buttonTextCreate}>Criar Conta</Text>
       </TouchableOpacity>
       <TouchableOpacity>

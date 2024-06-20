@@ -4,14 +4,32 @@ import { StyleSheet, View, Image, TouchableOpacity, Animated, Easing, Text } fro
 import { useFonts, OpenSans_400Regular, OpenSans_300Light } from '@expo-google-fonts/open-sans';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Slider from '@react-native-community/slider';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const App = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [centralImage, setCentralImage] = useState(require('../../assets/images/Vovo_juju.png'));
   const [timer, setTimer] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [count, setCount] = useState(5);
   const translateY = useRef(new Animated.Value(300)).current;
+
+  const handleAbout = () => {
+    navigation.navigate('OverlaySobre');
+  };
+
+  useEffect(() => {
+    if (route.params?.stopTimer) {
+      stopTimer(true);
+      navigation.setParams({ stopTimer: false });
+    }
+    if (route.params?.decrementCount) {
+      setCount((prevCount) => Math.max(prevCount - 1, 0));
+      navigation.setParams({ decrementCount: false });
+    }
+  }, [route.params?.stopTimer, route.params?.decrementCount]);
 
   const [fonteLoaded] = useFonts({
     OpenSans_400Regular,
@@ -37,6 +55,18 @@ const App = () => {
     return () => clearInterval(interval);
   }, [isRunning, timer]);
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      const route = navigation.getState().routes.find(route => route.name === 'OverlayDesistir');
+      if (route?.params?.stopTimer) {
+        stopTimer(true);
+        navigation.setParams({ stopTimer: false });
+      }
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
   const toggleOverlay = () => {
     if (overlayVisible) {
       Animated.timing(translateY, {
@@ -61,7 +91,20 @@ const App = () => {
   };
 
   const toggleTimer = () => {
-    setIsRunning((prevRunning) => !prevRunning);
+    if (isRunning) {
+      navigation.navigate('OverlayDesistir');
+    } else {
+      if (timer > 0) {
+        setIsRunning((prevIsRunning) => !prevIsRunning);
+      }
+    }
+  };
+
+  const stopTimer = (reset = false) => {
+    setIsRunning(false);
+    if (reset) {
+      setTimer(0);
+    }
   };
 
   const formatTime = (time) => {
@@ -81,7 +124,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.abacaxiButton}>
+      <TouchableOpacity style={styles.abacaxiButton} onPress={handleAbout}>
         <Image source={require('../../assets/images/abacaxi.png')} style={styles.imageAbacate}/>
         <Text style={styles.text}>{count}</Text>
       </TouchableOpacity>

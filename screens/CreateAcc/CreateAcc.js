@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import { useFonts, NunitoSans_700Bold } from '@expo-google-fonts/nunito-sans'
 import { OpenSans_400Regular, OpenSans_600SemiBold } from '@expo-google-fonts/open-sans'
+import { useNavigation } from '@react-navigation/native'; // Importar useNavigation
 
 const CreateAcc = () => {
+  const navigation = useNavigation(); // Obter objeto de navegação
   const [email, setEmail] = useState('');
   const [text, setText] = useState('');
   const [password, setPassword] = useState('');
@@ -17,10 +19,18 @@ const CreateAcc = () => {
     return null
   }
 
+  const handleHaveLogin = () => {
+    navigation.navigate('Login');
+  };
+
+  const handleRegistered = () => {
+    navigation.navigate('TelaPrincipal');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <TouchableOpacity style={styles.cancelButton}>
+        <TouchableOpacity style={styles.cancelButton} onPress={handleHaveLogin}>
           <Text style={styles.cancelButtonText}>Cancelar</Text>
         </TouchableOpacity>
         <Image source={require('../../assets/images/abacaxi.png')} style={styles.image} />
@@ -50,10 +60,10 @@ const CreateAcc = () => {
         secureTextEntry
         autoCapitalize="none"
       />
-      <TouchableOpacity style={styles.buttonCreated}>
+      <TouchableOpacity style={styles.buttonCreated} onPress={handleRegistered}>
         <Text style={styles.buttonTextCreated}>Cadastrar</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleHaveLogin}>
         <Text style={styles.PossuiAcc}>já tenho uma conta</Text>
       </TouchableOpacity>
     </View>
