@@ -3,12 +3,15 @@ import { View, TextInput, StyleSheet, Image, Text, TouchableOpacity } from 'reac
 import { useFonts, NunitoSans_700Bold } from '@expo-google-fonts/nunito-sans'
 import { OpenSans_400Regular, OpenSans_600SemiBold } from '@expo-google-fonts/open-sans'
 import { useNavigation } from '@react-navigation/native'; // Importar useNavigation
+import { Ionicons } from '@expo/vector-icons'
+
 
 const CreateAcc = () => {
   const navigation = useNavigation(); // Obter objeto de navegação
   const [email, setEmail] = useState('');
   const [text, setText] = useState('');
   const [password, setPassword] = useState('');
+  const [hidePass, setHidePass] = useState(true)
 
   const [fonteLoaded] = useFonts({
     NunitoSans_700Bold,
@@ -52,14 +55,24 @@ const CreateAcc = () => {
         keyboardType="email-address"
         autoCapitalize="none"
       />
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        autoCapitalize="none"
-      />
+      <View style={styles.input}>
+        <TextInput
+          style={styles.inputSenha}
+          placeholder="Senha"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={hidePass}
+          autoCapitalize="none"
+        />
+        <TouchableOpacity onPress={ ()=> setHidePass(!hidePass) }>
+          {
+            hidePass ? 
+            <Ionicons name="eye" color="#3E5A33" size={25}/>
+            :
+            <Ionicons name="eye-off" color="#3E5A33" size={25}/>
+          }
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity style={styles.buttonCreated} onPress={handleRegistered}>
         <Text style={styles.buttonTextCreated}>Cadastrar</Text>
       </TouchableOpacity>
@@ -76,13 +89,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: -40,
+    backgroundColor: '#fafff9'
   },
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     width: '80%',
     marginBottom: 100,
-    marginTop: -50
+    marginTop: -80
   },
   image: {
     width: 30,
@@ -98,6 +112,8 @@ const styles = StyleSheet.create({
     fontFamily: 'NunitoSans_700Bold',
   },
   input: {
+    flexDirection: 'row',
+    alignItems: 'center',
     width: '80%',
     height: 56,
     borderColor: 'gray',
@@ -108,6 +124,10 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans_600SemiBold',
     borderColor: '#7E9F70',
     color:'#06150080',
+    backgroundColor:'white'
+  },
+  inputSenha:{
+    width:'87%'
   },
   buttonCreated: {
     width: '80%',
